@@ -65,6 +65,33 @@ const SearchPage = () => {
     return book.shelf || 'none';
   };
 
+  const renderShelfOptions = (book) => {
+    const isBookOnShelf = book.shelf;
+
+    return (
+      <>
+        <option value="none" disabled>
+          {isBookOnShelf ? 'Move to...' : 'Add to...'}
+        </option>
+        {!isBookOnShelf && (
+          <>
+            <option value="currentlyReading">Currently Reading</option>
+            <option value="wantToRead">Want to Read</option>
+            <option value="read">Read</option>
+          </>
+        )}
+        {isBookOnShelf && (
+          <>
+            <option value="currentlyReading">Currently Reading</option>
+            <option value="wantToRead">Want to Read</option>
+            <option value="read">Read</option>
+            <option value="none">None</option>
+          </>
+        )}
+      </>
+    );
+  };
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -98,13 +125,7 @@ const SearchPage = () => {
                       onChange={(e) => handleUpdateBookShelf(book, e.target.value)}
                       value={getSelectValue(book)}
                     >
-                      <option value="none" disabled>
-                        {book.shelf ? 'Move to...' : 'Add to...'}
-                      </option>
-                      <option value="currentlyReading">Currently Reading</option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
+                      {renderShelfOptions(book)}
                     </select>
                   </div>
                 </div>
