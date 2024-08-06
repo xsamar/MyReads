@@ -21,8 +21,8 @@ const SearchPage = () => {
             const filteredResults = results.filter((book) => book.imageLinks && book.imageLinks.thumbnail);
 
             const updatedResults = filteredResults.map((book) => {
-              const foundBook = books.find((b) => b.id === book.id);
-              return foundBook ? { ...book, shelf: foundBook.shelf } : book;
+              // Assign 'none' shelf to search results initially
+              return { ...book, shelf: 'none' };
             });
             setSearchResults(updatedResults);
             setError(null); 
@@ -66,7 +66,7 @@ const SearchPage = () => {
   };
 
   const renderShelfOptions = (book) => {
-    const isBookOnShelf = book.shelf;
+    const isBookOnShelf = book.shelf !== 'none';
 
     return (
       <>
