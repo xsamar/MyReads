@@ -66,28 +66,15 @@ const SearchPage = () => {
   };
 
   const renderShelfOptions = (book) => {
-    const isBookOnShelf = book.shelf !== 'none';
-
     return (
       <>
-        <option value="none" disabled>
-          {isBookOnShelf ? 'Move to...' : 'Add to...'}
+        <option disabled>
+          {book.shelf === 'none' ? 'Add to...' : 'Move to'}
         </option>
-        {!isBookOnShelf && (
-          <>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-          </>
-        )}
-        {isBookOnShelf && (
-          <>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </>
-        )}
+        <option value="currentlyReading">Currently Reading</option>
+        <option value="wantToRead">Want to Read</option>
+        <option value="read">Read</option>
+        <option value="none" selected={book.shelf == 'none' }>None</option>
       </>
     );
   };
@@ -117,7 +104,7 @@ const SearchPage = () => {
                     style={{
                       width: 128,
                       height: 193,
-                      backgroundImage: `url("${book.imageLinks ? book.imageLinks.thumbnail : ''}")`,
+                      backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : ''})`,
                     }}
                   ></div>
                   <div className="book-shelf-changer">
